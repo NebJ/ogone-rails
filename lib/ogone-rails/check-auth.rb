@@ -13,9 +13,11 @@ module OgoneRails
       # Check authentication
       # sha_sign == sha_out_phrase
       sha_sign, sha_out_phrase, ogone_return = @request['SHASIGN'], "", {}
-      
+
       # Upcase and sort paramaters to params
       @request.each do |key, value|
+        # Parameters without value should not be included in the string to hash
+        next if value.blank?
         ogone_return[key.upcase] = value unless key == 'SHASIGN' # exclude SHASIGN
       end
 
