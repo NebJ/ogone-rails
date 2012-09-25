@@ -3,7 +3,7 @@ module OgoneRails
   module Helpers
     extend self
 
-    def ogone_form options={}
+    def ogone_form options={}, submit_name = "Pay with Ogone"
       
       OgoneRails::mode == "live" ? action = OgoneRails::LIVE_SERVICE_URL : action = OgoneRails::TEST_SERVICE_URL
       
@@ -150,7 +150,7 @@ module OgoneRails
       
       form.add_input('SHASign', sha_in)
 
-      form.get_form
+      form.get_form(submit_name)
     end
   end
   
@@ -168,8 +168,8 @@ module OgoneRails
       end
 
     
-      def get_form
-        @form << "\t<input type='submit' value='Pay with Ogone' id='submit2' name='submit2'>\n"
+      def get_form(submit_name)
+        @form << "\t<input type='submit' value='#{submit_name}' id='submit2' name='submit2'>\n"
         @form << "</form>"
         @form.html_safe
       end
